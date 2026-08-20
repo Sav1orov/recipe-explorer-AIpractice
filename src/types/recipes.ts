@@ -7,7 +7,7 @@ export interface IRecipe {
   image: string
   ingredients: string[]
   instructions: string[]
-  mealType: string[]
+  mealType: TMealType[]
   reviewCount: number
   servings: number
   userId: number

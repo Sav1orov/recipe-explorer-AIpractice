@@ -3,6 +3,7 @@ import type { IRecipe } from '@/types/recipes'
 
 const props = defineProps<{
   recipe: IRecipe
+  isFavorite: boolean
 }>()
 
 const emit = defineEmits<{
@@ -27,6 +28,7 @@ function toFavorite(id: number) {
       <span class="recipe-card__cuisine">{{ props.recipe.cuisine }}</span>
       <button
         class="recipe-card__favorite"
+        :class="{ 'is-active': props.isFavorite }"
         type="button"
         :aria-label="`Add ${props.recipe.name} to favorites`"
         @click="toFavorite(props.recipe.id)"

@@ -4,6 +4,7 @@ import RecipeCard from './RecipeCard.vue'
 
 const props = defineProps<{
   recipes: IRecipe[]
+  favoriteIds: number[]
 }>()
 
 const emit = defineEmits<{
@@ -21,6 +22,7 @@ function addToFav(id: number) {
       v-for="recipe in props.recipes"
       :key="recipe.id"
       :recipe="recipe"
+      :is-favorite="props.favoriteIds.includes(recipe.id)"
       @add-to-fav="addToFav"
     />
   </div>

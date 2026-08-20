@@ -13,8 +13,8 @@
   --color-positive: #315f4d;
   --color-danger: #b42318;
   --color-danger-soft: #fbe5e2;
-  --font-sans: Inter, "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: Inter, 'Avenir Next', Avenir, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -194,7 +194,10 @@ img {
   border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 650;
-  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
 }
 
 .favorites-toggle:hover {
@@ -305,7 +308,9 @@ img {
   background: var(--color-surface);
   border: 1px solid var(--color-line-strong);
   border-radius: var(--radius-sm);
-  transition: border-color 160ms ease, background 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .search-field input {
@@ -337,7 +342,7 @@ img {
   height: 7px;
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
-  content: "";
+  content: '';
   pointer-events: none;
   transform: rotate(45deg) translateY(-50%);
 }
@@ -379,7 +384,10 @@ img {
   font-size: 13px;
   font-weight: 650;
   text-transform: capitalize;
-  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
 }
 
 .meal-tab:hover {
@@ -485,12 +493,30 @@ img {
   border: 1px solid rgb(29 33 28 / 14%);
   border-radius: 50%;
   box-shadow: var(--shadow-floating);
-  transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
 }
 
 .recipe-card__favorite:hover {
   color: var(--color-surface);
   background: var(--color-accent);
+}
+
+.recipe-card__favorite.is-active {
+  color: var(--color-surface);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.recipe-card__favorite.is-active:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.recipe-card__favorite.is-active svg {
+  fill: currentColor;
 }
 
 .recipe-card__favorite:active {
@@ -658,7 +684,9 @@ img {
 }
 
 @keyframes skeleton-pulse {
-  to { opacity: 0.48; }
+  to {
+    opacity: 0.48;
+  }
 }
 
 .site-footer {

@@ -54,10 +54,8 @@ async function getData() {
     }
     const result: IRecipesResponse = await response.json()
     recipes.value = result.recipes
-    console.log(recipes.value)
-  } catch (error) {
+  } catch {
     isError.value = true
-    throw new Error(`Error!${error}`)
   } finally {
     isLoading.value = false
   }
@@ -92,7 +90,10 @@ const sortedRecipes = computed(() => {
 
   if (currentSort.value === 'cookTime') {
     return sortedArray.sort((a, b) => {
-      return a.cookTimeMinutes - b.cookTimeMinutes
+      const totalA = a.prepTimeMinutes + a.cookTimeMinutes
+      const totalB = b.prepTimeMinutes + b.cookTimeMinutes
+
+      return totalA - totalB
     })
   }
 
@@ -122,8 +123,6 @@ function addToFavorites(id: number) {
   } else {
     favRecipes.value.push(id)
   }
-
-  console.log(favRecipes.value)
 }
 
 getData()
@@ -292,7 +291,12 @@ watch(
           </p>
         </div>
 
-        <RecipeList v-else :recipes="displayedRecipes" @add-to-fav="addToFavorites" />
+        <RecipeList
+          v-else
+          :favorite-ids="favRecipes"
+          :recipes="displayedRecipes"
+          @add-to-fav="addToFavorites"
+        />
       </section>
     </main>
 
