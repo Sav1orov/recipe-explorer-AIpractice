@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import type { IRecipe } from '@/types/recipes'
+
 const props = defineProps<{
-  recipe
+  recipe: IRecipe
 }>()
 
-const emit = defineEmits(['add-to-fav'])
-
-function toFavorite(id) {
+const emit = defineEmits<{
+  'add-to-fav': [id: number]
+}>()
+function toFavorite(id: number) {
   emit('add-to-fav', id)
 }
 </script>
@@ -28,8 +31,16 @@ function toFavorite(id) {
         :aria-label="`Add ${props.recipe.name} to favorites`"
         @click="toFavorite(props.recipe.id)"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path
+            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"
+          />
         </svg>
       </button>
     </div>
@@ -40,7 +51,13 @@ function toFavorite(id) {
 
       <dl class="recipe-card__metrics">
         <div class="recipe-card__metric">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
             <circle cx="12" cy="12" r="9" />
             <path d="M12 7v5l3 2" />
           </svg>
@@ -48,15 +65,31 @@ function toFavorite(id) {
           <dd>{{ props.recipe.prepTimeMinutes + props.recipe.cookTimeMinutes }} min</dd>
         </div>
         <div class="recipe-card__metric">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" />
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path
+              d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"
+            />
           </svg>
           <dt class="sr-only">Rating</dt>
           <dd>{{ props.recipe.rating.toFixed(1) }}</dd>
         </div>
         <div class="recipe-card__metric">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M13 3s1 3-2 6c-2.2 2.2-3 4-3 6a4 4 0 0 0 8 0c0-1.8-.8-3.4-2-4.8.1 2-1 3.2-2 3.8.4-3.5-1-5.5 1-11Z" />
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path
+              d="M13 3s1 3-2 6c-2.2 2.2-3 4-3 6a4 4 0 0 0 8 0c0-1.8-.8-3.4-2-4.8.1 2-1 3.2-2 3.8.4-3.5-1-5.5 1-11Z"
+            />
           </svg>
           <dt class="sr-only">Calories per serving</dt>
           <dd>{{ props.recipe.caloriesPerServing }} kcal</dd>

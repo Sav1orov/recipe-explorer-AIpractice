@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import RecipeList from './components/RecipeList.vue'
+import { type TSort, type IRecipe, type TTabs, type IRecipesResponse } from './types/recipes.ts'
 
 const isError = ref(false)
 const isLoading = ref(false)
-const recipes = ref([])
+const recipes = ref<IRecipe[]>([])
 const recipeQuery = ref('')
-const currentTab = ref('all')
+const currentTab = ref<TTabs>('all')
+const currentSort = ref<TSort>('all')
 const showOnlyFavorites = ref(false)
 const FAVORITES_KEY = 'favorite-recipes'
-const tabs = {
+const tabs: Record<TTabs, TTabs> = {
   all: 'all',
   breakfast: 'breakfast',
   lunch: 'lunch',
@@ -19,7 +21,7 @@ const tabs = {
 
 const favRecipes = ref(loadFavorites())
 
-function loadFavorites() {
+function loadFavorites(): number[] {
   const saved = localStorage.getItem(FAVORITES_KEY)
 
   if (!saved) return []
@@ -27,17 +29,14 @@ function loadFavorites() {
   try {
     const result = JSON.parse(saved)
 
-    if (Array.isArray(result)) return result
+    if (Array.isArray(result) && result.every((item) => typeof item === 'number')) return result
   } catch {
     return []
   }
-
   return []
 }
 
-const currentSort = ref('all')
-
-function selectCurrentTab(tab) {
+function selectCurrentTab(tab: TTabs) {
   currentTab.value = tab
 }
 
@@ -53,12 +52,12 @@ async function getData() {
     if (!response.ok) {
       throw new Error(`Response status:, ${response.status}`)
     }
-    const result = await response.json()
+    const result: IRecipesResponse = await response.json()
     recipes.value = result.recipes
     console.log(recipes.value)
   } catch (error) {
     isError.value = true
-    throw new Error('Error!', error)
+    throw new Error(`Error!${error}`)
   } finally {
     isLoading.value = false
   }
@@ -116,7 +115,7 @@ const displayedRecipes = computed(() => {
   return showOnlyFavorites.value ? onlyFavoriteRecipes.value : sortedRecipes.value
 })
 
-function addToFavorites(id) {
+function addToFavorites(id: number) {
   const uniqueRecipeId = favRecipes.value.find((item) => item === id)
   if (uniqueRecipeId) {
     favRecipes.value = favRecipes.value.filter((item) => item !== id)

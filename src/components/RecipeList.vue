@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import type { IRecipe } from '@/types/recipes.ts'
 import RecipeCard from './RecipeCard.vue'
 
 const props = defineProps<{
-  recipes
+  recipes: IRecipe[]
 }>()
 
-const emit = defineEmits(['add-to-fav'])
+const emit = defineEmits<{
+  'add-to-fav': [id: number]
+}>()
 
-function addToFav(id) {
+function addToFav(id: number) {
   emit('add-to-fav', id)
 }
 </script>
